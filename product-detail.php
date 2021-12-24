@@ -208,15 +208,25 @@
                 <ul class="navbar-nav">
                     <?php
                     //顯示會員
-                    echo "<li class='nav-item'><a class='nav-link' href='login.php'>";
                     session_start();
                     if($_SESSION['name'] == null)
-                        echo "會員登入</li></a>";
+                        echo "<li class='nav-item'><a class='nav-link' href='login.php'>會員登入</a></li>";
                     else
                     {
-                        echo "歡迎".$_SESSION['name']."</li></a>";
-                        //跳destroy.php執行session destroy
-                        echo "<li class='nav-item'><a class='nav-link' href='destroy.php'>登出</a></li>";
+                        echo "
+                            <li class='nav-item dropdown'>
+                                <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                    歡迎".$_SESSION['name']."
+                                </a>
+                                <ul class='dropdown-menu'>
+                                    <li>
+                                        <a class='dropdown-item' href='accountadjust.php'>我的帳戶</a>
+                                        <a class='dropdown-item' href='dindan.php'>購買清單</a>
+                                        <a class='dropdown-item' href='destroy.php'>登出</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            ";
                     }
                     ?>
                 </ul>

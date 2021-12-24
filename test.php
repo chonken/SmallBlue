@@ -301,6 +301,63 @@ class test
             }
         }
     }
+
+    public function Rate($ment, $rate){ //$ment是留言內容 $rate是評分
+
+        if(isset($ment,$rate)){ //判斷是否有人評分
+            $this->DBLink_Query("SELECT `c_id` FROM `comment` order by c_id DESC", "fetch_array"); //根據cid排列
+            $comment_id = $this->fetch_array["c_id"] + 1; //c_id自動編號
+
+            $this->DBLink_Query("INSERT INTO `comment`(`c_id`, `id`, `p_id`, `c_ment`, `rate`) 
+                                VALUES ('$comment_id', '".$_GET['p_id']."', '".$_GET['p_id']."', '$ment', '$rate')"); //輸入評論內容
+        }
+        $this->DBLink_Query("SELECT * FROM `comment` WHERE p_id='".$_GET['p_id']."'" , "fetch_array"); //透過pid抓取其對應的評論區
+
+    }
+
+    public function Adjust($email, $newpd, $newphone,$sex,$bd){
+        if(isset($email, $newpd, $newphone,$bd)){
+            if($email!=NULL){
+                $this->DBLink_Query("UPDATE `customer` SET `c_email`='$email' WHERE c_name='".$_SESSION['name']."'");
+                echo 1;
+            }
+            if($newpd!=NULL){
+                $this->DBLink_Query("UPDATE `customer` SET  `c_pword`='$newpd' WHERE c_name='".$_SESSION['name']."'");
+            }
+            if($newphone!=NULL){
+                $this->DBLink_Query("UPDATE `customer` SET  `phone`='$newphone' WHERE c_name='".$_SESSION['name']."'");
+            }
+            if($sex!=NULL){
+                $this->DBLink_Query("UPDATE `customer` SET `sex`='$sex' WHERE c_name='".$_SESSION['name']."'");
+            }
+            if($bd!=NULL){
+                $this->DBLink_Query("UPDATE `customer` SET `bd`='$bd' WHERE c_name='".$_SESSION['name']."'");
+            }
+            echo "<script>alert('帳戶修改成功')</script>";
+            echo "<script>window.location='index.php';</script>";
+        }
+        $this->DBLink_Query("SELECT * FROM `customer` WHERE c_name='".$_SESSION['name']."'","fetch_array");
+        $a = $this->fetch_array["c_email"];
+        $b = $this->fetch_array["c_pword"];
+        $c = $this->fetch_array["phone"];
+        $d = $this->fetch_array["c_name"];
+        $e = $this->fetch_array["sex"];
+        $f = $this->fetch_array["bd"];
+        echo "電子郵件:$a 密碼:$b 電話:$c 使用者名稱:$d 性別:$e 生日:$f ";
+    }
+
+    public function Dindan($act, $product_id, $customer_id) // 購物車放入訂單
+    {
+        //使用購物車
+
+        //o_id 編號
+        $this->DBLink_Query("SELECT `o_id` FROM `dindan` order by o_id DESC", "fetch_array");
+        $oid = $this->fetch_array["o_id"] + 1;
+
+        //資料新增至訂單
+        $this->DBLink_Query("INSERT INTO `dindan`(`o_id`, `p_id`, `id`) VALUES ($oid, $product_id, $customer_id)");
+
+    }
 }
 /*########
 <div class='col-lg-2 col-sm-6'>

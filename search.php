@@ -56,7 +56,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0)">通知</a>
                     </li>
@@ -67,19 +67,43 @@
                         <a class="nav-link" href="javascript:void(0)">賣家中心</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav">
+                    <li class='nav-item'>
+                        <form method='POST'>
+                            <div class='input-group'>
+                                <input type='text' class='form-control' placeholder='搜尋' name='search'>
+                                <button class='btn btn-dark' type='submit'>Go</button>
+                            </div>
+                        </form>
+                    </li>
                     <?php
-
+                    //跳轉搜尋
+                    if($_POST['search'] != null)
+                        header("Location: search.php?search=".$_POST['search']);
+                    ?>
+                </ul>
+                <ul class="navbar-nav">
+                    <?php
                     //顯示會員
-                    echo "<li class='nav-item'><a class='nav-link' href='#' data-toggle='modal' data-target='#myLogin'>";
                     session_start();
-                    if($_SESSION['uid'] == null)
-                        echo "會員登入</li></a>";
+                    if($_SESSION['name'] == null)
+                        echo "<li class='nav-item'><a class='nav-link' href='login.php'>會員登入</a></li>";
                     else
                     {
-                        echo "歡迎".$_SESSION['uid']."</li></a>";
-                        //跳destroy.php執行session destroy
-                        echo "<li class='nav-item'><a class='nav-link' href='destroy.php'>登出</a></li>";
+                        echo "
+                            <li class='nav-item dropdown'>
+                                <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                    歡迎".$_SESSION['name']."
+                                </a>
+                                <ul class='dropdown-menu'>
+                                    <li>
+                                        <a class='dropdown-item' href='accountadjust.php'>我的帳戶</a>
+                                        <a class='dropdown-item' href='dindan.php'>購買清單</a>
+                                        <a class='dropdown-item' href='destroy.php'>登出</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            ";
                     }
                     ?>
                 </ul>
