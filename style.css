@@ -12,7 +12,7 @@ footer{
 }
 
 /*********/
-/* style */
+/* class */
 /*********/
 /* 修改bootstrap的導覽列 */
 .navbar-expand-sm .navbar-collapse{
@@ -119,21 +119,3 @@ footer{
 /******/
 /* id */
 /******/
-#btn{
-    margin-top: 50px;
-}
-#btn > img{
-    height: 50px;
-    max-width: 100%;
-    margin: auto;
-}
-#btn > p{
-    margin-top: 5px;
-    text-align: center;
-    /*font-family: 微軟正黑體;*/
-    font-size: large;
-}
-#category{
-    text-align: center;
-}
-

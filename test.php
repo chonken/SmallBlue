@@ -292,7 +292,7 @@ class test
                             </div>
                             <div class='card-body'>
                                 <p class='card-text'>'".$item[$i]['p_name']."'</p>
-                                <span>NT$ '".$item[$i]['price']."'</span>
+                                <span>NT$ ".$item[$i]['price']."</span>
                                 <a href='product-detail.php?p_id=".$item[$i]['p_id']."' class='stretched-link'></a>
                             </div>
                         </div>

@@ -15,8 +15,34 @@
     <!-- bootstrap js -->
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- icon -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
     <!-- style -->
     <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        #category{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        #category-item{
+            height: auto;
+            width: 85px;
+            position: relative;
+        }
+        #category-item .icon{
+            margin: 8px;
+            font-size: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+        #category-item p{
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
 
 </head>
 <body>
@@ -167,32 +193,58 @@
 
     <!-- 分類 -->
     <article>
-        <h3 id="category" class="my-4">分類</h3>
-        <section class="row">
-            <div id="btn" class="col-lg-2 d-block">
-                <img class="d-block" src="images/shopping%20cart.png">
+        <h3 class="my-4">分類</h3>
+        <section id="category">
+            <div id="category-item">
+                <div class="icon">
+                    <ion-icon name="storefront-outline"></ion-icon>
+                </div>
                 <p>生活</p>
+                <a href="category.php?category=生活" class="stretched-link"></a>
             </div>
-            <div id="btn" class="col-lg-2 d-block">
-                <img class="d-block" src="images/shopping%20cart.png">
+            <div id="category-item">
+                <div class="icon">
+                    <ion-icon name="shirt-outline"></ion-icon>
+                </div>
                 <p>服飾</p>
+                <a href="category.php?category=服飾" class="stretched-link"></a>
             </div>
-            <div id="btn" class="col-lg-2 d-block">
-                <img class="d-block" src="images/shopping%20cart.png">
+            <div id="category-item">
+                <div class="icon">
+                    <ion-icon name="dice-outline"></ion-icon>
+                </div>
                 <p>娛樂</p>
+                <a href="category.php?category=娛樂" class="stretched-link"></a>
             </div>
-            <div id="btn" class="col-lg-2 d-block">
-                <img class="d-block" src="images/shopping%20cart.png">
+            <div id="category-item">
+                <div class="icon">
+                    <ion-icon name="tv-outline"></ion-icon>
+                </div>
                 <p>3C</p>
+                <a href="category.php?category=3C" class="stretched-link"></a>
             </div>
-            <div id="btn" class="col-lg-2 d-block">
-                <img class="d-block" src="images/shopping%20cart.png">
+            <div id="category-item">
+                <div class="icon">
+                    <ion-icon name="game-controller-outline"></ion-icon>
+                </div>
                 <p>遊戲</p>
+                <a href="category.php?category=遊戲" class="stretched-link"></a>
             </div>
-            <div id="btn" class="col-lg-2 d-block">
-                <img class="d-block" src="images/shopping%20cart.png">
-                <p>家電</p>
+            <div id="category-item">
+                <div class="icon">
+                    <ion-icon name="book-outline"></ion-icon>
+                </div>
+                <p>書</p>
+                <a href="category.php?category=書" class="stretched-link"></a>
             </div>
+            <div id="category-item">
+                <div class="icon">
+                    <ion-icon name="fast-food-outline"></ion-icon>
+                </div>
+                <p>零食</p>
+                <a href="category.php?category=零食" class="stretched-link"></a>
+            </div>
+            <!--                <ion-icon name="cart-outline"></ion-icon>-->
         </section>
 
     </article>
