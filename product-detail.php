@@ -16,156 +16,11 @@
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- style -->
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-
-        pre{
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        body{
-            background: #FFF7E8;
-        }
-        main{
-            margin: 30px 0;
-        }
-
-        .navbar{
-            padding: 15px 0;
-        }
-        /* 修改bootstrap的導覽列 */
-        .navbar-expand-sm .navbar-collapse{
-            justify-content: space-between;
-        }
-
-        .input-group{
-            border: 4px solid white;
-            width: 600px;
-        }
-
-        /* 修改bootstrap的form格式 */
-        .form-control{
-            border-radius: 0;
-        }
-        .carousel-item > img {
-            height: 100%;
-            margin: auto;
-        }
-        #btn > img{
-            height: 50px;
-            max-width: 100%;
-            margin: auto;
-        }
-        #btn > p{
-            margin-top: 5px;
-            text-align: center;
-            /*font-family: 微軟正黑體;*/
-            font-size: large;
-        }
-        footer{
-            margin-top: 50px;
-        }
-
         main{
             display: flex;
         }
-        article{
-            width: 85%;
-        }
-        .product{
-            display: flex;
-        }
-        .product-pic{
-            width: 300px;
-        }
-        .product-pic img{
-            width: 300px;
-            height: auto;
-        }
-        .product-detail{
-            width: 100%;
-        }
-        .product-detail h1{
-            padding: 10px 50px 10px 30px;
-            font-size: 23px;
-            display: block;
-        }
-        .prise h2{
-            font-size: 25px;
-            font-weight: bold;
-            color: crimson;
-            display: inline-block;
-        }
-        .prise span{
-            padding-right: 8px;
-            color: gray;
-            text-decoration: line-through;
-            display: inline-block;
-        }
-        .prise{
-            margin-left: 30px;
-            padding: 20px 50px 20px 20px;
-            background: #EDEDED;
-        }
-        .product-detail p{
-            margin: 10px 50px;
-            font-size: 16px;
-            display: block;
-        }
-        .product-category a{
-            margin: 10px 0;
-            text-decoration: none;
-            border-bottom: 1px solid black;
-            font-size: 20px;
-            color: black;
-            text-align: center;
-            display: block;
-        }
-        .product-category a:hover{
-            margin: 10px 0;
-            text-decoration: none;
-            border-bottom: 1px solid black;
-            font-size: 20px;
-            color: white;
-            background: black;
-            text-align: center;
-            display: block;
-        }
-        .product-detail table{
-            display: block;
-            padding-left: 45px;
-        }
-        .product-detail td{
-            padding: 10px 5px;
-        }
-        .product-detail .cart{
-            margin: 10px 50px;
-            padding: 8px;
-            display: block;
-        }
-        .product-detail div a{
-            padding: 8px;
-            background: black;
-            text-decoration: none;
-            color: white;
-        }
-        article section{
-            background: white;
-            margin-bottom: 20px;
-            padding: 20px;
-            width: 100%;
-        }
-        aside{
-            width: 15%;
-            margin-right: 20px;
-            display: flex;
-            flex-direction: column;
-            font-size: 20px;
-        }
-        .product-category{
-            padding: 15px;
-            background: white;
-        }
-
     </style>
 
 </head>
@@ -239,8 +94,8 @@
 <main class="container">
 
     <!-- -->
-    <aside>
-        <section class="product-category">
+    <aside class="sidebar">
+        <div class="aside-category">
             <div>
                 <a href="category.php?category=生活">生活</a>
             </div>
@@ -265,10 +120,10 @@
             <div>
                 <a href="category.php?category=書">書</a>
             </div>
-        </section>
+        </div>
     </aside>
 
-    <article>
+    <article class="detail">
         <?php
         include"test.php";
 
@@ -276,7 +131,7 @@
         $ProductDetail->ProductDetail($_GET['p_id']);
         ?>
 
-        <section>
+        <section class="content-area detail-rate">
             <p>商品評價：</p>
             <!--star-->
             <div>

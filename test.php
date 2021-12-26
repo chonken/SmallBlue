@@ -216,14 +216,14 @@ class test
 
         $prise=round($this->fetch_array['price']*4/3);
         echo "
-            <section class='product'>
-                <div class='product-pic'>
+            <section class='content-area detail-title'>
+                <div class='detail-title--pic'>
                     <img src='images/".$this->fetch_array['p_image']."'>
                 </div>
     
-                <div class='product-detail'>
+                <div class='detail-title--content'>
                     <h1>".$this->fetch_array['p_name']."</h1>
-                    <div class='prise'>
+                    <div class='content-prise'>
                         <span>原價：$$prise</span>
                         <h2>$".$this->fetch_array['price']."</h2>
                     </div>
@@ -237,14 +237,14 @@ class test
                         <td>".$this->fetch_array['p_quan']."件</td>
                     </tr>
                     </table>
-                    <div class='cart'>
+                    <div class='content-submit'>
                         <a href='#' class=''>加入購物車</a>
                         <a href='#' class=''>直接購買</a>
                     </div>
                 </div>
             </section>
     
-            <section>
+            <section class='content-area detail-describe'>
                 <p>商品描述：</p>
                 <pre>".$this->fetch_array['p_des']."</pre>
             </section>
