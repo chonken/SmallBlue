@@ -75,15 +75,15 @@
                             </div>
                         </form>
                     </li>
+                    <!-- 跳轉搜尋-->
                     <?php
-                    //跳轉搜尋
                     if($_POST['search'] != null)
                         header("Location: search.php?search=".$_POST['search']);
                     ?>
                 </ul>
                 <ul class="navbar-nav">
+                    <!-- 顯示會員 -->
                     <?php
-                    //顯示會員
                     session_start();
                     if($_SESSION['name'] == null)
                         echo "<li class='nav-item'><a class='nav-link' href='login.php'>會員登入</a></li>";
@@ -182,6 +182,7 @@
     <article>
         <h2 class="my-4">推薦商品</h2>
         <section class="row">
+            <!-- 推薦商品 -->
             <?php
             include "test.php";
 

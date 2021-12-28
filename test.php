@@ -61,14 +61,14 @@ class test
         }
     }
 
-    public function Cart($act, $product_id, $customer_id)
+    public function Cart($act, $customer_id, $product_id=null)
     {//add delete display
         //使用購物車
         switch ($act)
         {
             case "add":
                 //要新增商品的ID
-                $id = $this->DBLink_Query("SELECT `id` FROM `cart` order by id DESC", "fetch_array");
+                $this->DBLink_Query("SELECT `id` FROM `cart` order by id DESC", "fetch_array");
                 $id = $this->fetch_array["id"] + 1;
 
                 //新增至購物車
@@ -77,30 +77,41 @@ class test
             case "delete":
                 $this->DBLink_Query("DELETE FROM `cart` WHERE `p_id` = $product_id");
                 break;
-            case "display":
-                $this->DBLink_Query("SELECT `p_id`, `p_name`, `p_des`, `p_image`, `price` FROM `product`, `cart`, `customer`
-                                            WHERE `product`.`p_id` = `cart`.`p_id` AND `customer`.`id` = $customer_id", "fetch_all");
-                echo "<div class='row'>";
-                foreach ($this->fetch_all as $item)
-                {
-                    echo"
-                        <div class='col-lg-2 col-sm-6'>
-                            <div class='card'>
-                                <div class='card-img'>
-                                    <img class='card-img-top' src='./images/".$item['p_image']."' alt='".$item['p_image']."'>
-                                </div>
-                                <div class='card-body'>
-                                    <p class='card-text'>'".$item['p_name']."'</p>
-                                    <span>NT$ '".$item['price']."'</span>
-                                    <a href='product-detail.php?p_id=".$item['p_id']."' class='stretched-link'></a>
-                                </div>
-                            </div>
+        }
+
+        //顯示購物車
+        $this->DBLink_Query("SELECT `cart`.`p_id`, `p_name`, `p_des`, `p_image`, `price` FROM `product`, `cart`, `customer` 
+                                WHERE `product`.`p_id` = `cart`.`p_id` AND `customer`.`c_name` = '$customer_id'", "fetch_all");
+
+        foreach ($this->fetch_all as $item)
+        {
+            echo "<div class='item'>
+                <div class='item--select'>
+                    <input type='checkbox' value=''>
+                </div>
+                <div class='item--pic'>
+                    <img src='./images/".$item['p_image']."' alt='".$item['p_image']."'>
+                </div>
+                <div class='item--content'>
+                    <div class='wrap-top'>
+                        <div class='wrap-top--name'>
+                            <p>".$item['p_name']."</p>
                         </div>
-                        ";
-                }
-                echo "</div>";
-                echo "<hr>";
-                break;
+                        <div class='wrap-top--quantity'>
+                            <input type='number'>
+                        </div>
+                        <div class='wrap-top--prise'>
+                            <p>".$item['price']."</p>
+                        </div>
+                    </div>
+                    <div class='wrap-button'>
+                        <p>小記： $536</p>
+                    </div>
+                </div>
+                <div class='item--delete'>
+                    <p>刪除</p>
+                </div>
+            </div>";
         }
     }
 
@@ -188,7 +199,7 @@ class test
         foreach ($this->fetch_all as $item){
             echo "<div class='display-group'>";
             echo "
-                        <img src='images/".$item['p_image']."'>
+                        <img src='./images/".$item['p_image']."'>
                         <div class='display-item'>
                             <div>
                                 <span>產品名稱：".$item['p_name']."</span>
@@ -218,7 +229,7 @@ class test
         echo "
             <section class='content-area detail-title'>
                 <div class='detail-title--pic'>
-                    <img src='images/".$this->fetch_array['p_image']."'>
+                    <img src='./images/".$this->fetch_array['p_image']."'>
                 </div>
     
                 <div class='detail-title--content'>
@@ -263,8 +274,8 @@ class test
                             <img class='card-img-top' src='./images/".$item['p_image']."' alt='".$item['p_image']."'>
                         </div>
                         <div class='card-body'>
-                            <p class='card-text'>'".$item['p_name']."'</p>
-                            <span>NT$ '".$item['price']."'</span>
+                            <p class='card-text'>".$item['p_name']."</p>
+                            <span>NT$ ".$item['price']."</span>
                             <a href='product-detail.php?p_id=".$item['p_id']."' class='stretched-link'></a>
                         </div>
                     </div>
@@ -291,7 +302,7 @@ class test
                                 <img class='card-img-top' src='./images/".$item[$i]['p_image']."' alt='".$item[$i]['p_image']."'>
                             </div>
                             <div class='card-body'>
-                                <p class='card-text'>'".$item[$i]['p_name']."'</p>
+                                <p class='card-text'>".$item[$i]['p_name']."</p>
                                 <span>NT$ ".$item[$i]['price']."</span>
                                 <a href='product-detail.php?p_id=".$item[$i]['p_id']."' class='stretched-link'></a>
                             </div>
