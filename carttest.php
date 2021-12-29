@@ -21,8 +21,13 @@
         p{
             margin: 5px 0;
         }
-        .total{
-
+        .cart-total{
+            display: flex;
+            justify-content: center;
+        }
+        .cart-total p{
+            margin-right: 30px;
+            text-align: right;
         }
     </style>
 
@@ -102,23 +107,28 @@
             include "test.php";
             $cart = new test();
 
-            $cart->Cart("display", $_SESSION['name']);
-            ?>
+            $cart->Cart($_SESSION['name']);
 
-            <div class="total">
-                <p>小計： $</p>
+            if($_POST['123'] == "delete")
+            {
+                $cart->Cart($_SESSION['name'], "delete", $_POST['p_id']);
+                $_POST['123']=null;
+                $_POST['p_id']=null;
+                echo "<script>window.location='carttest.php'</script>";
+            }
+            ?>
+        </div>
+        <div class="cart-total">
+            <div>
+                <p>總計： $1072</p>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-danger">去買單</button>
             </div>
         </div>
     </form>
 
-<div class="row" style="margin-bottom: 50px;">
-    <div class="col-lg-6">
-        <p style="text-align: right">小計：$1072</p>
-    </div>
-    <div class="col-lg-6">
-        <button type="button" class="btn btn-danger">去買單</button>
-    </div>
-</div>
+
 
 </main>
 

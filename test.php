@@ -55,13 +55,17 @@ class test
                 echo "<hr>";
             }
 
+            //查詢是誰
+            $this->DBLink_Query("SELECT `id` FROM `customer` WHERE `c_name`=".$_SESSION['name'], "fetch_array");
+            $id=$this->fetch_array['id'];
+
             //儲存紀錄(類別)
             $save=$this->fetch_all[0]['p_categ'];
-            $this->DBLink_Query("INSERT INTO `history`(`id`, `h`) VALUES (1, '$save')");#
+            $this->DBLink_Query("INSERT INTO `history`(`id`, `h`) VALUES ($id, '$save')");
         }
     }
 
-    public function Cart($act, $customer_id, $product_id=null)
+    public function Cart($customer_id, $act=null, $product_id=null)
     {//add delete display
         //使用購物車
         switch ($act)
@@ -80,38 +84,39 @@ class test
         }
 
         //顯示購物車
-        $this->DBLink_Query("SELECT `cart`.`p_id`, `p_name`, `p_des`, `p_image`, `price` FROM `product`, `cart`, `customer` 
+        $this->DBLink_Query("SELECT `cart`.`p_id`, `p_name`, `p_des`, `p_image`, `price`, `number` FROM `product`, `cart`, `customer` 
                                 WHERE `product`.`p_id` = `cart`.`p_id` AND `customer`.`c_name` = '$customer_id'", "fetch_all");
 
         foreach ($this->fetch_all as $item)
         {
             echo "<div class='item'>
-                <div class='item--select'>
-                    <input type='checkbox' value=''>
-                </div>
-                <div class='item--pic'>
-                    <img src='./images/".$item['p_image']."' alt='".$item['p_image']."'>
-                </div>
-                <div class='item--content'>
-                    <div class='wrap-top'>
-                        <div class='wrap-top--name'>
-                            <p>".$item['p_name']."</p>
+                        <div class='item--select'>
+                            <input type='checkbox' name='select[]' value='".$item['p_id']."'>
                         </div>
-                        <div class='wrap-top--quantity'>
-                            <input type='number'>
+                        <div class='item--pic'>
+                            <img src='./images/".$item['p_image']."' alt='".$item['p_image']."'>
                         </div>
-                        <div class='wrap-top--prise'>
-                            <p>".$item['price']."</p>
+                        <div class='item--content'>
+                            <div class='wrap-top'>
+                                <div class='wrap-top--name'>
+                                    <p>".$item['p_name']."</p>
+                                </div>
+                                <div class='wrap-top--quantity'>
+                                    <p>".$item['number']."</p>
+                                </div>
+                                <div class='wrap-top--prise'>
+                                    <p>".$item['price']."</p>
+                                </div>
+                            </div>
+                            <div class='wrap-button'>
+                                <p>小計： ".$item['number']*$item['price']."</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class='wrap-button'>
-                        <p>小記： $536</p>
-                    </div>
-                </div>
-                <div class='item--delete'>
-                    <p>刪除</p>
-                </div>
-            </div>";
+                        <div class='item--delete'>
+                            <button name='123' value='delete'>刪除</button>
+                        </div>
+                    </div>";
+            $_POST['p_id']=$_POST['select'][0];
         }
     }
 
@@ -180,13 +185,17 @@ class test
             case "add":
                 if($name != null && $description != null && $image != null && $category != null && $price != null && $quantity != null)
                 {
-                    //自動編號碼
+                    //產品自動編號碼
                     $this->DBLink_Query("SELECT p_id FROM `product` order by p_id DESC", "fetch_array");
-                    $id = $this->fetch_array['p_id'] + 1;
+                    $p_id = $this->fetch_array['p_id'] + 1;
+
+                    //查詢是誰
+                    $this->DBLink_Query("SELECT `id` FROM `customer` WHERE `c_name`=".$_SESSION['name'], "fetch_array");
+                    $id=$this->fetch_array['id'];
 
                     //新增商品
                     $this->DBLink_Query("INSERT INTO `product`(`p_id`,`id`,`p_name`,`p_des`,`p_image`,`p_categ`,`price`,`p_quan`) VALUES 
-                    ('$id', '1', '$name', '$description', '$image', '$category', '$price', '$quantity')");#
+                    ('$p_id', '$id', '$name', '$description', '$image', '$category', '$price', '$quantity')");
                 }
                 break;
             case "delete":
@@ -286,9 +295,15 @@ class test
     }
 
     public function HistorySearch(){
-        $this->DBLink_Query("SELECT `h` FROM `history` WHERE id=1", "fetch_array");#
+        //查詢是誰
+        $this->DBLink_Query("SELECT `id` FROM `customer` WHERE `c_name`=".$_SESSION['name'], "fetch_array");
+        $id=$this->fetch_array['id'];
+
+        //查出歷史紀錄
+        $this->DBLink_Query("SELECT `h` FROM `history` WHERE id=$id", "fetch_array");
         $category=$this->fetch_array[0];
 
+        //印出歷史紀錄的類別商品
         $this->DBLink_Query("SELECT `p_id`, `p_name`, `p_image`, `price` FROM `product` WHERE p_categ='$category'", "fetch_all");
         $item=$this->fetch_all;
         for ($i=0; $i<6; $i++)
